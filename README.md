@@ -9,27 +9,32 @@ All components are docker-based
 
 #### To start the application
 
-Step 1: start mongodb and mongo-express
+Method 2 run by docker command    
+    docker network create profile-app-network
 
+    docker run \
+    -d \
+    --network profile-app-network \
+    --name themongoserver \
+    -p 27017:27017 \
+    -e MONGO_INITDB_ROOT_USERNAME=admin \
+    -e MONGO_INITDB_ROOT_PASSWORD=password \
+    mongo
+    
+    docker build -t profile-app:1.0 .
+
+    docker run \
+    -d \
+    --network profile-app-network \
+    --name theprofileapp \
+    -p 3000:3000 \
+    -e MONGODB_ADMINUSERNAME=admin \
+    -e MONGODB_ADMINPASSWORD=password \
+    -e MONGODB_SERVER=themongoserver \
+    profile-app:1.0
+
+Method 1: start  the app by docker-compose
     docker-compose -f docker-compose.yaml up
-    
-_You can access the mongo-express under localhost:8080 from your browser_
-    
-Step 2: in mongo-express UI - create a new database "my-db"
-
-Step 3: in mongo-express UI - create a new collection "users" in the database "my-db"       
-    
-Step 4: start node server 
-
-    node server.js
-    
-_You can access the application under localhost:3000 from your browser_
-
-#### To build a docker image from the application
-
-    docker build -t my-app:1.0 .       
-    
-The dot "." at the end of the command denotes location of the Dockerfile.
 
 #### To test api-end point ####
     http://localhost:3000/get-profile
