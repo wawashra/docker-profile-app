@@ -9,7 +9,7 @@ All components are docker-based
 
 #### To start the application
 
-Method 2 run by docker command    
+### Method 1 run by docker command    
     docker network create profile-app-network
 
     docker run \
@@ -33,7 +33,7 @@ Method 2 run by docker command
     -e MONGODB_SERVER=themongoserver \
     profile-app:1.0
 
-Method 1: start  the app by docker-compose
+### Method 2: start  the app by docker-compose
     docker-compose -f docker-compose.yaml up
 
 #### To test api-end point ####
