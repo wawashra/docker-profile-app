@@ -9,7 +9,9 @@ All components are docker-based
 
 #### To start the application
 
-### Method 1 run by docker command    
+### Method 1 run by docker command
+    docker build -t profile-app:1.0 .
+
     docker network create profile-app-network
 
     docker run \
@@ -21,7 +23,6 @@ All components are docker-based
     -e MONGO_INITDB_ROOT_PASSWORD=password \
     mongo
     
-    docker build -t profile-app:1.0 .
 
     docker run \
     -d \
@@ -33,8 +34,10 @@ All components are docker-based
     -e MONGODB_SERVER=themongoserver \
     profile-app:1.0
 
-### Method 2: start  the app by docker-compose
-    docker-compose -f docker-compose.yaml up
-
+### Method 2: start the app by docker-compose
+    docker-compose build
+    docker-compose up -d
+## to stop the composed container
+    docker-compose down -d
 #### To test api-end point ####
     http://localhost:3000/get-profile
