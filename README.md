@@ -17,7 +17,7 @@ All components are docker-based
     docker run \
     -d \
     --network profile-app-network \
-    --name themongoserver \
+    --name mongodb \
     -p 27017:27017 \
     -e MONGO_INITDB_ROOT_USERNAME=admin \
     -e MONGO_INITDB_ROOT_PASSWORD=password \
@@ -31,7 +31,7 @@ All components are docker-based
     -p 3000:3000 \
     -e MONGODB_ADMINUSERNAME=admin \
     -e MONGODB_ADMINPASSWORD=password \
-    -e MONGODB_SERVER=themongoserver \
+    -e MONGODB_SERVER=mongodb \
     profile-app:1.0
 
 ### Method 2: start the app by docker-compose
