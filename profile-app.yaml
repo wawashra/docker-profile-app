@@ -46,7 +46,7 @@ spec:
             - name: MONGODB_ADMINPASSWORD
               value: "password"
             - name: MONGODB_SERVER
-              value: "10.3.240.56"
+              value: "mongodb"
           ports:
             - name: profileapp
               containerPort: 3000
