@@ -1,20 +1,3 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: profileapp
-  labels:
-    app: profileapp
-spec:
-  type: LoadBalancer
-  ports:
-    - port: 3000
-      targetPort: 3000
-      protocol: TCP
-      name: profilepp
-
-  selector:
-    app: profileapp
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -42,11 +25,20 @@ spec:
           image: wawashra/profile-app:1.0
           env:
             - name: MONGODB_ADMINUSERNAME
-              value: "admin"
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: mongo-root-username
             - name: MONGODB_ADMINPASSWORD
-              value: "password"
+              valueFrom: 
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: mongo-root-password
             - name: MONGODB_SERVER
-              value: "mongodb"
+              valueFrom: 
+                configMapKeyRef:
+                  name: mongodb-configmap
+                  key: database_url
           ports:
             - name: profileapp
               containerPort: 3000
