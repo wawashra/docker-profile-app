@@ -9,3 +9,12 @@ kubectl apply -f profile-app-service.yaml
 kubectl apply -f profile-app.yaml
 
 kubectl get pods
+
+
+
+# reg lab 
+http://bit.ly/menadd-mar
+
+# lab
+https://www.qwiklabs.com/focuses/878?parent=catalog
+
