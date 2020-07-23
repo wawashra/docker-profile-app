@@ -1,3 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: profileapp
+  labels:
+    app: profileapp
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP
+      name: profile-app-lanch-port
+
+  selector:
+    app: profileapp
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -21,17 +38,24 @@ spec:
         app: profileapp
     spec:
       containers:
-      - name: profileapp
-        image: wawashra/profile-app:1.0
-        ports:
-        - containerPort: 3000
-        lifecycle:
+        - name: profileapp
+          image: wawashra/profile-app:1.0
+          env:
+            - name: MONGODB_ADMINUSERNAME
+              value: "admin"
+            - name: MONGODB_ADMINPASSWORD
+              value: "password"
+            - name: MONGODB_SERVER
+              value: "10.3.240.56"
+          ports:
+            - name: profile-app-lanch-port
+              containerPort: 3000
+          lifecycle:
             postStart:
               exec:
                 command:
                   [
-                    "sed",
-                    "-i",
-                    "'s/localhost:3000/6d6r5ou2ns.lb.c3.gra.k8s.ovh.net:3000/g'",
-                    "/home/app/index.html"
+                    "/bin/sh",
+                    "-c",
+                    "sed -i 's/localhost:3000/6d6r5ou2ns.lb.c3.gra.k8s.ovh.net:3000/g' /home/app/index.html",
                   ]
