@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: profileapp
+  labels:
+    app: profileapp
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP
+      name: profile-app-lanch-port
+
+  selector:
+    app: profileapp

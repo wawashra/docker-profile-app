@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: profileapp-deployment
+  labels:
+    app: profileapp
+spec:
+  replicas: 1
+  minReadySeconds: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: profileapp
+  template:
+    metadata:
+      labels:
+        app: profileapp
+    spec:
+      containers:
+      - name: profileapp
+        image: wawashra/profile-app:1.0
+        ports:
+        - containerPort: 3000
+        lifecycle:
+            postStart:
+              exec:
+                command:
+                  [
+                    "sed",
+                    "-i",
+                    "'s/localhost:3000/6d6r5ou2ns.lb.c3.gra.k8s.ovh.net:3000/g'",
+                    "/home/app/index.html"
+                  ]
