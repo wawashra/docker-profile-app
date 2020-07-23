@@ -10,7 +10,7 @@ spec:
     - port: 3000
       targetPort: 3000
       protocol: TCP
-      name: profile-app-lanch-port
+      name: profilepp
 
   selector:
     app: profileapp
@@ -48,7 +48,7 @@ spec:
             - name: MONGODB_SERVER
               value: "10.3.240.56"
           ports:
-            - name: profile-app-lanch-port
+            - name: profileapp
               containerPort: 3000
           lifecycle:
             postStart:
